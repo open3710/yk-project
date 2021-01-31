@@ -1,0 +1,8 @@
+web\dao\BlogDao.class
+web\config\MyMetaObjectHandler.class
+web\service\impl\BlogServiceImpl.class
+web\config\MyBatisPlusConfig.class
+web\service\BlogService.class
+web\controller\BlogController.class
+web\BlogApplication.class
+web\config\CustomIdGenerator.class
