@@ -1,4 +1,4 @@
-package com.yk.blog.config;
+package com.yk.web.config;
 
 import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
 import org.apache.ibatis.reflection.MetaObject;

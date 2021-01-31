@@ -1,4 +1,4 @@
-package com.yk.blog.config;
+package com.yk.web.config;
 
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;

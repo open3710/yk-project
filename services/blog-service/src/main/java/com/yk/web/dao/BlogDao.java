@@ -1,4 +1,4 @@
-package com.yk.blog.dao;
+package com.yk.web.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.yk.common.entity.Blog;

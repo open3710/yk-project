@@ -1,4 +1,4 @@
-package com.yk.blog.controller;
+package com.yk.web.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.api.ApiController;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yk.common.entity.Blog;
-import com.yk.blog.service.BlogService;
+import com.yk.web.service.BlogService;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
