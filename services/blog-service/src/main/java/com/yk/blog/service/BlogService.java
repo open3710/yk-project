@@ -1,4 +1,4 @@
-package com.yk.web.service;
+package com.yk.blog.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.yk.common.entity.Blog;

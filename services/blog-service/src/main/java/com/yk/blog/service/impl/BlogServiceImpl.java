@@ -1,9 +1,9 @@
-package com.yk.web.service.impl;
+package com.yk.blog.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yk.common.entity.Blog;
-import com.yk.web.dao.BlogDao;
-import com.yk.web.service.BlogService;
+import com.yk.blog.dao.BlogDao;
+import com.yk.blog.service.BlogService;
 import org.springframework.stereotype.Service;
 
 /**
