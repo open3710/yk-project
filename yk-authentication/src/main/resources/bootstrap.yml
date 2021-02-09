@@ -1,9 +1,9 @@
 server:
-  port: 3710
+  port: 3711
 
 spring:
   application:
-    name: yk-blog
+    name: yk-authentication
   cloud:
     nacos:
       discovery:
