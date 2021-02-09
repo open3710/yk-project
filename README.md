@@ -4,6 +4,8 @@
 
 > 获取授权码
  http://localhost:3711/oauth/authorize?response_type=code&client_id=yk&scope=all&redirect_uri=http://www.baidu.com
+ 用户名：admin
+ 密码：123
  
 > 通过授权码获取token
 
