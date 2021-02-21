@@ -7,6 +7,8 @@
  用户名：admin
  密码：123
  
+ - scope可以是ROLE_ADMIN,ROLE_USER,ROLE_API
+ 
 > 通过授权码获取token
 
  http://localhost:3711/oauth/token
