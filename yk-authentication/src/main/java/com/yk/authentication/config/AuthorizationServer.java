@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -12,14 +13,17 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.InMemoryAuthorizationCodeServices;
+import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
+import javax.sql.DataSource;
 import java.util.Arrays;
 
 /**
@@ -36,19 +40,31 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
     private TokenStore tokenStore;
-//    @Autowired
-//    private AuthenticationManager authenticationManager;
+    @Autowired
+    private AuthenticationManager authenticationManager;
     @Autowired
     private AuthorizationCodeServices authorizationCodeServices;
     @Autowired
-    private ClientDetailsService detailsService;
+    private ClientDetailsService clientDetailsService;
     @Autowired
     private JwtAccessTokenConverter jwtAccessTokenConverter;
 
+    // 配置到数据库
+    @Bean
+    public ClientDetailsService clientDetailsService(DataSource dataSource){
+        ClientDetailsService clientDetailsService = new JdbcClientDetailsService(dataSource);
+        ((JdbcClientDetailsService) clientDetailsService).setPasswordEncoder(passwordEncoder());
+        return clientDetailsService;
+    }
+
+
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+        // 保存到数据库
+        clients.withClientDetails(clientDetailsService);
+
         // 内存方式
-        clients.inMemory()
+        /*clients.inMemory()
                 // 客户端id
                 .withClient("yk")
                 // 秘钥
@@ -62,7 +78,7 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
                 // 是否跳到授权页面
                 .autoApprove(false)
                 // 雁阵回调地址
-                .redirectUris("http://www.baidu.com");
+                .redirectUris("http://www.baidu.com");*/
     }
 
     @Bean
@@ -77,7 +93,7 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
     public AuthorizationServerTokenServices tokenServices(){
         DefaultTokenServices services = new DefaultTokenServices();
         // 客户端信息服务
-        services.setClientDetailsService(detailsService);
+        services.setClientDetailsService(clientDetailsService);
         // 是否刷新令牌
         services.setSupportRefreshToken(true);
         // 令牌存储策略
@@ -108,21 +124,14 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
      /oauth/error：授权服务错误信息端点。
      /oauth/check_token：用于资源服务访问的令牌解析端点。
      /oauth/token_key：提供公有密匙的端点，如果你使用JWT令牌的话。
-
-
-     通过tokenStore来定义Token的存储方式和生成方式：
-     InMemoryTokenStore
-     JdbcTokenStore
-     JwtTokenStore
-     RedisTokenStore
-     http://localhost:3711/oauth/authorize?response_type=code&client_id=yk&scope=all&redirect_uri=http://www.baidu.com
+     http://localhost:3711/oauth/authorize?response_type=code&client_id=yk&scope=ROLE_ADMIN&redirect_uri=http://www.baidu.com
      */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 
         endpoints
                 // 密码模式
-//                .authenticationManager(authenticationManager)
+                .authenticationManager(authenticationManager)
                 // 授权码模式
                 .authorizationCodeServices(authorizationCodeServices)
                 // 令牌管理服务
@@ -145,12 +154,23 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
     }
 
     /**
-     * 授权码服务
+     * 授权码服务基于内存
      */
-    @Bean
+   /* @Bean
     public AuthorizationCodeServices authorizationCodeServices(){
         return new InMemoryAuthorizationCodeServices();
+    }*/
+
+    /**
+     * 授权码保存在数据库
+     */
+
+    @Bean
+    public AuthorizationCodeServices authorizationCodeServices(DataSource dataSource){
+        return new JdbcAuthorizationCodeServices(dataSource);
     }
+
+
 }
     
     
