@@ -1,5 +1,6 @@
 package com.yk.web.controller;
 
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,10 +18,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
 
-    @PreAuthorize("hasAuthority('p2')")
+    @PreAuthorize("hasAuthority('insertd')")
     @GetMapping("/r1")
-    public String r1(){
-        return "Success";
+    public Object r1(){
+        return "Success r1";
+    }
+
+    @PreAuthorize("hasAuthority('selectd')")
+    @GetMapping("/r2")
+    public Object r2(){
+        return "Success r2";
     }
 }
     

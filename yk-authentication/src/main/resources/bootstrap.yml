@@ -1,5 +1,7 @@
 server:
   port: 3711
+  servlet:
+    context-path: /uaa
 
 spring:
   application:
@@ -19,5 +21,4 @@ spring:
 #      transport:
 #        dashboard: 115.29.205.214:8858
 #        port: 8868  #8868，假如被占用了会自动从8719开始依次+1扫描。直至找到未被占用的端口
-
 

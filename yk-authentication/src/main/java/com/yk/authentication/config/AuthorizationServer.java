@@ -15,7 +15,6 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
-import org.springframework.security.oauth2.provider.code.InMemoryAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
@@ -124,7 +123,7 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
      /oauth/error：授权服务错误信息端点。
      /oauth/check_token：用于资源服务访问的令牌解析端点。
      /oauth/token_key：提供公有密匙的端点，如果你使用JWT令牌的话。
-     http://localhost:3711/oauth/authorize?response_type=code&client_id=yk&scope=ROLE_ADMIN&redirect_uri=http://www.baidu.com
+     http://localhost:3711/uaa/oauth/authorize?response_type=code&client_id=yk&scope=ROLE_ADMIN&redirect_uri=http://www.baidu.com
      */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {

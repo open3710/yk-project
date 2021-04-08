@@ -1,5 +1,7 @@
 server:
   port: 3710
+  servlet:
+    context-path: /blog
 
 spring:
   application:

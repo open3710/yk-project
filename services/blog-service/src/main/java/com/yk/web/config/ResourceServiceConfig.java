@@ -1,6 +1,5 @@
 package com.yk.web.config;
 
-import jdk.nashorn.internal.parser.TokenStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,7 +20,7 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 @EnableResourceServer
 public class ResourceServiceConfig extends ResourceServerConfigurerAdapter {
 
-    public static final String RESOURCE_ID="blog";
+    public static final String RESOURCE_ID="yk_blog";
 
     @Autowired
     private TokenStore tokenStore;
@@ -37,10 +36,11 @@ public class ResourceServiceConfig extends ResourceServerConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/**")
-                .access("#oauth2.hasScope('all')")
+                .access("#oauth2.hasAnyScope('ROLE_ADMIN')")
                 .and()
                 .csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 }
     
