@@ -1,0 +1,21 @@
+server:
+  port: 3713
+  servlet:
+    context-path: /system
+
+spring:
+  application:
+    name: yk-system
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 115.29.205.214:8848 #服务注册中心地址
+      config:
+        server-addr: 115.29.205.214:8848 #配置中心地址
+        file-extension: yaml #指定yaml格式的配置
+#        group: DEFAULT_GROUP # 分组切换
+#        namespace: 1bfb3a32-bd3f-4f43-93d2-f21a19691088
+    sentinel:
+      transport:
+        dashboard: 115.29.205.214:8858
+        #port: 8868  #8868，假如被占用了会自动从8719开始依次+1扫描。直至找到未被占用的端口
