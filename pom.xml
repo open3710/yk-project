@@ -105,6 +105,16 @@
                 <artifactId>spring-security-jwt</artifactId>
                 <version>1.0.10.RELEASE</version>
             </dependency>
+
+            <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>1.2.76</version>
+            </dependency>
+
+
+
         </dependencies>
     </dependencyManagement>
 
