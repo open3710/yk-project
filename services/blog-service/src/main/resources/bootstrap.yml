@@ -2,7 +2,7 @@ server:
   port: 3710
   servlet:
     context-path: /blog
-
+  max-http-header-size: 100000
 spring:
   application:
     name: yk-blog

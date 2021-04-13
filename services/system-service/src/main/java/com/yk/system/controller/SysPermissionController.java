@@ -21,6 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("sysPermission")
 public class SysPermissionController extends ApiController {
+
     /**
      * 服务对象
      */

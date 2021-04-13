@@ -6,9 +6,9 @@ import com.baomidou.mybatisplus.extension.api.ApiController;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yk.common.entity.SysUser;
+import com.yk.system.feign.BlogFeignService;
 import com.yk.system.service.SysUserService;
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
+import com.yk.system.util.RedisUtil;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,11 +25,25 @@ import java.util.List;
 @RestController
 @RequestMapping("sysUser")
 public class SysUserController extends ApiController {
+
     /**
      * 服务对象
      */
     @Resource
     private SysUserService sysUserService;
+
+    /**
+     * redisUtil
+     */
+    @Resource
+    private RedisUtil redisUtil;
+
+    /**
+     * 博客接口
+     */
+    @Resource
+    private BlogFeignService blogFeignService;
+
 
     /**
      * 分页查询所有数据
@@ -53,10 +67,15 @@ public class SysUserController extends ApiController {
     @GetMapping("{id}")
     @PreAuthorize("hasAuthority('selectd')")
     public R selectOne(@PathVariable Serializable id) {
-        StringRedisTemplate redisTemplate = new StringRedisTemplate();
-        ValueOperations<String, String> stringStringValueOperations = redisTemplate.opsForValue();
-        stringStringValueOperations.set("id",id+"");
-        return success(this.sysUserService.getById(id));
+        SysUser sysUser = (SysUser)redisUtil.get(id+"");
+        if (null == sysUser) {
+            redisUtil.set(id+"", this.sysUserService.getById(id));
+        }else{
+            sysUser = (SysUser)redisUtil.get(id+"");
+        }
+        String o = blogFeignService.test1(1);
+        System.out.println("r = " + o);
+        return success(sysUser);
     }
 
     /**

@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yk.common.entity.Blog;
 import com.yk.web.service.BlogService;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -50,10 +51,8 @@ public class BlogController extends ApiController {
      * @return 单条数据
      */
     @GetMapping("/selectOne/{id}")
+    @PreAuthorize("hasAuthority('selectd')")
     public R selectOne(@PathVariable Serializable id) {
-       /* redisTemplate.opsForValue().set("myKey","myValue");
-        System.out.println(redisTemplate.opsForValue().get("myKey"));
-        redisTemplate.opsForHash().put("blog",null,null);*/
         System.out.println("id = " + id);
         return success(this.blogService.getById(id));
     }
@@ -90,4 +89,11 @@ public class BlogController extends ApiController {
     public R delete(@RequestParam("idList") List<String> idList) {
         return success(this.blogService.removeByIds(idList));
     }
+
+    @PreAuthorize("hasAuthority('selectd')")
+    @GetMapping("/test1")
+    public String test1(Integer id){
+        return "test1 success="+id;
+    }
+
 }

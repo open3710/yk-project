@@ -1,10 +1,12 @@
 package com.yk.common.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -18,7 +20,9 @@ import java.util.List;
 @SuppressWarnings("serial")
 @Data
 @TableName("sys_user")
-public class SysUser implements UserDetails {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class SysUser implements UserDetails , Serializable {
+
 
     /**
      * 用户主键
