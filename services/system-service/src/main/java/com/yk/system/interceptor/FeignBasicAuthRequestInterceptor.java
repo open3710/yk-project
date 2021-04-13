@@ -1,6 +1,5 @@
 package com.yk.system.interceptor;
 
-import cn.hutool.core.util.StrUtil;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import org.springframework.context.annotation.Configuration;
@@ -25,9 +24,7 @@ public class FeignBasicAuthRequestInterceptor implements RequestInterceptor {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
         String authorization = request.getHeader("Authorization");
-        String token = StrUtil.sub(authorization, 7, authorization.length());
-//        requestTemplate.header("Authorization", authorization);
-        requestTemplate.header("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsieWtfYmxvZyJdLCJ1c2VyX25hbWUiOiJhZG1pbiIsInNjb3BlIjpbIlJPTEVfQURNSU4iLCJST0xFX0FQSSJdLCJleHAiOjE2MTgzMTAxMzEsImF1dGhvcml0aWVzIjpbImRlbGV0ZWQiLCJpbnNlcnRkIiwidXBkYXRlZCIsInNlbGVjdGQiXSwianRpIjoiNjkwYzc4YjAtNTU2Ni00YmUyLWE0YmQtY2Y5MzNlMTZmZjhiIiwiY2xpZW50X2lkIjoiYmxvZyJ9.1dllY9BxF1iljXjxraVPAjFkqNehr9qS8RsKO4jEjLM");
+        requestTemplate.header("Authorization", authorization);
 
     }
 }
