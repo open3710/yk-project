@@ -16,5 +16,5 @@ public interface BlogFeignService {
      * @return
      */
     @RequestMapping(method = RequestMethod.GET, value = "/blog/blog/test1")
-    public String test1(@RequestParam("id") Integer id);
+    public String test1(@RequestParam("id") String id);
 }

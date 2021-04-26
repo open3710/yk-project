@@ -24,7 +24,9 @@ public class FeignBasicAuthRequestInterceptor implements RequestInterceptor {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
         String authorization = request.getHeader("Authorization");
+        String token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsieWtfYmxvZyJdLCJ1c2VyX25hbWUiOiJhZG1pbiIsInNjb3BlIjpbIlJPTEVfQURNSU4iLCJST0xFX0FQSSJdLCJleHAiOjE2MTk0MTE1NzEsImF1dGhvcml0aWVzIjpbImRlbGV0ZWQiLCJpbnNlcnRkIiwidXBkYXRlZCIsInNlbGVjdGQiXSwianRpIjoiOTFjOTkxYzUtMDJjYS00NTgwLWFlNmMtYjk3ODEyNzViMTBjIiwiY2xpZW50X2lkIjoiYmxvZyJ9.4tGCTPvEpMnTahc3pFlsMY0uYlUem7cmuty5Q-qj8KY";
         requestTemplate.header("Authorization", authorization);
+//        requestTemplate.header("Authorization", token);
 
     }
 }

@@ -11,4 +11,5 @@ import com.yk.common.entity.Blog;
  */
 public interface BlogService extends IService<Blog> {
 
+    boolean updateBlogByGuId(String blogGuid);
 }

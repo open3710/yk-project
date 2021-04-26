@@ -14,7 +14,8 @@ spring:
       config:
         server-addr: 115.29.205.214:8848 #配置中心地址
         file-extension: yaml #指定yaml格式的配置
-#        group: DEFAULT_GROUP # 分组切换
+        group: DEFAULT_GROUP
+    #        group: DEFAULT_GROUP # 分组切换
 #        namespace: 1bfb3a32-bd3f-4f43-93d2-f21a19691088
     sentinel:
       transport:

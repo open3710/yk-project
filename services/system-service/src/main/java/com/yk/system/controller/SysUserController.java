@@ -6,9 +6,7 @@ import com.baomidou.mybatisplus.extension.api.ApiController;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yk.common.entity.SysUser;
-import com.yk.system.feign.BlogFeignService;
 import com.yk.system.service.SysUserService;
-import com.yk.system.util.RedisUtil;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,17 +30,6 @@ public class SysUserController extends ApiController {
     @Resource
     private SysUserService sysUserService;
 
-    /**
-     * redisUtil
-     */
-    @Resource
-    private RedisUtil redisUtil;
-
-    /**
-     * 博客接口
-     */
-    @Resource
-    private BlogFeignService blogFeignService;
 
 
     /**
@@ -67,15 +54,8 @@ public class SysUserController extends ApiController {
     @GetMapping("{id}")
     @PreAuthorize("hasAuthority('selectd')")
     public R selectOne(@PathVariable Serializable id) {
-        SysUser sysUser = (SysUser)redisUtil.get(id+"");
-        if (null == sysUser) {
-            redisUtil.set(id+"", this.sysUserService.getById(id));
-        }else{
-            sysUser = (SysUser)redisUtil.get(id+"");
-        }
-        String o = blogFeignService.test1(1);
-        System.out.println("r = " + o);
-        return success(sysUser);
+        Boolean aBoolean = sysUserService.updateUserByGuid(id + "");
+        return success(aBoolean);
     }
 
     /**

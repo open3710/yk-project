@@ -92,8 +92,9 @@ public class BlogController extends ApiController {
 
     @PreAuthorize("hasAuthority('selectd')")
     @GetMapping("/test1")
-    public String test1(Integer id){
-        return "test1 success="+id;
+    public String test1(String id){
+        boolean b = blogService.updateBlogByGuId(id);
+        return "test1 success="+b;
     }
 
 }

@@ -11,4 +11,5 @@ import com.yk.common.entity.SysUser;
  */
 public interface SysUserService extends IService<SysUser> {
 
+    Boolean updateUserByGuid(String guid);
 }

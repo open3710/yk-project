@@ -15,4 +15,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class BlogServiceImpl extends ServiceImpl<BlogDao, Blog> implements BlogService {
 
+    @Override
+    public boolean updateBlogByGuId(String blogGuid) {
+        Blog blog = getById(blogGuid);
+        blog.setBlogTitle("测试分布式事务blog");
+        boolean update = update(blog, null);
+        return update;
+    }
 }
